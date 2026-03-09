@@ -51,7 +51,7 @@ public final class Constants {
     public static final double LAUNCHING_LAUNCHER_PERCENT = 1;
     public static final double INTAKE_EJECT_PERCENT = -0.8;
 
-    public static final double SPIN_UP_SECONDS = 2;
+    public static final double SPIN_UP_SECONDS = 1.5;
   }
 
   public static final class ClimbConstatns {
