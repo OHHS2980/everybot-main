@@ -46,7 +46,7 @@ public class CANFuelSubsystem extends SubsystemBase {
     
     launcherConfig.smartCurrentLimit(LAUNCHER_MOTOR_CURRENT_LIMIT);
     launcherConfig.voltageCompensation(12);
-    launcherConfig.idleMode(IdleMode.kBrake);
+    launcherConfig.idleMode(IdleMode.kCoast);
     RightIntakeLauncher.configure(launcherConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     //launcherConfig.inverted(true);
     LeftIntakeLauncher.configure(launcherConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
