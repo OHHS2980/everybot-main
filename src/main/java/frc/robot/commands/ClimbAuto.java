@@ -7,13 +7,14 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.CANDriveSubsystem;
 import frc.robot.subsystems.CANFuelSubsystem;
+import frc.robot.subsystems.ClimberSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ExampleAuto extends SequentialCommandGroup {
+public class ClimbAuto extends SequentialCommandGroup {
   /** Creates a new ExampleAuto. */
-  public ExampleAuto(CANDriveSubsystem driveSubsystem, CANFuelSubsystem fuelSubsystem) {
+  public ClimbAuto(CANDriveSubsystem driveSubsystem, CANFuelSubsystem fuelSubsystem, ClimberSubsystem climberSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
@@ -23,8 +24,12 @@ public class ExampleAuto extends SequentialCommandGroup {
     new AutoDrive(driveSubsystem,-0.3,  0.0).withTimeout(2.5),
     // Spin up the launcher for 0.75 second and then launch balls for 9.25 seconds, for a
     // total of 10 seconds
-    new LaunchSequence(fuelSubsystem).withTimeout(15));
+    new LaunchSequence(fuelSubsystem).withTimeout(15),
 
+    new AutoDrive(driveSubsystem, -0.3, 0).withTimeout(5),
+    
+    new ClimbDown(climberSubsystem).withTimeout(2),
 
+    new  ClimbUp(climberSubsystem).withTimeout(10));
   }
 }

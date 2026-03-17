@@ -22,7 +22,7 @@ public final class Constants {
 
   public static final class DriveConstants {
     // Motor controller IDs for drivetrain motors
-    public static final int LEFT_LEADER_ID = 1;
+    public static final int LEFT_LEADER_ID = 9;
     public static final int LEFT_FOLLOWER_ID = 3;
     public static final int RIGHT_LEADER_ID = 2;
     public static final int RIGHT_FOLLOWER_ID = 4;
@@ -51,8 +51,8 @@ public final class Constants {
     public static final double LAUNCHING_LAUNCHER_PERCENT = 1;
     public static final double INTAKE_EJECT_PERCENT = -0.8;
 
-    public static final double SPIN_UP_SECONDS = 1.5;
-  }
+    public static final double SPIN_UP_SECONDS = 2.5;
+  }                                                                                                                       
 
   public static final class ClimbConstatns {
     // Motor controller IDs for Climb motor
@@ -74,7 +74,7 @@ public final class Constants {
 
     // This value is multiplied by the joystick value when rotating the robot to
     // help avoid turning too fast and beign difficult to control
-    public static final double DRIVE_SCALING = 0.7;
-    public static final double ROTATION_SCALING = 0.8;
+    public static final double DRIVE_SCALING = 0.6;
+    public static final double ROTATION_SCALING = 0.6;
   } 
 }
