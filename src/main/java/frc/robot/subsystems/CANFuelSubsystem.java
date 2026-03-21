@@ -10,6 +10,7 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 
@@ -23,6 +24,7 @@ import static frc.robot.Constants.FuelConstants.*;
 public class CANFuelSubsystem extends SubsystemBase {
   private final SparkMax LeftIntakeLauncher;
   private final SparkMax RightIntakeLauncher;
+  private final RelativeEncoder LeftIntakeEncoder;
   private final SparkMax Indexer;
 
   /** Creates a new CANBallSubsystem. */
@@ -31,6 +33,7 @@ public class CANFuelSubsystem extends SubsystemBase {
     LeftIntakeLauncher = new SparkMax(LEFT_INTAKE_LAUNCHER_MOTOR_ID, MotorType.kBrushless);
     RightIntakeLauncher = new SparkMax(RIGHT_INTAKE_LAUNCHER_MOTOR_ID, MotorType.kBrushless);
     Indexer = new SparkMax(INDEXER_MOTOR_ID, MotorType.kBrushless);
+    LeftIntakeEncoder = LeftIntakeLauncher.getEncoder();
 
     // create the configuration for the feeder roller, set a current limit and apply
     // the config to the controller
@@ -83,6 +86,7 @@ public class CANFuelSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Shooter speed", LeftIntakeEncoder.getVelocity());
     //LeftIntakeLauncher.set(.75);
     //RightIntakeLauncher.set(.75);
     // This method will be called once per scheduler run

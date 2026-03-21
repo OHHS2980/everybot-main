@@ -23,7 +23,7 @@ public class Drive extends Command {
     addRequirements(driveSystem);
     driveSubsystem = driveSystem;
     controller = driverController;
-    limiter = new SlewRateLimiter(0.5);
+    limiter = new SlewRateLimiter(0.9);
   }
 
   // Called when the command is initially scheduled.
