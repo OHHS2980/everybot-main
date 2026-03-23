@@ -34,6 +34,13 @@ public class Launch extends Command {
   // command doesn't require updating any values while running
   @Override
   public void execute() {
+    if (fuelSubsystem.getFlywheelSpeed() < -4250) {
+      fuelSubsystem.setFeederRoller(SmartDashboard.getNumber("Launching feeder roller value", INDEXER_LAUNCHING_PERCENT));
+    }
+    else {
+          SmartDashboard.putBoolean("Stopped shooting", true);
+          fuelSubsystem.setFeederRoller(0);
+    }
   }
 
   // Called once the command ends or is interrupted. Stop the rollers

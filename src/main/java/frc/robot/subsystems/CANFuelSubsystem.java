@@ -77,6 +77,10 @@ public class CANFuelSubsystem extends SubsystemBase {
     Indexer.set(-power); // positive for shooting
   }
 
+  public double getFlywheelSpeed() {
+    return LeftIntakeEncoder.getVelocity();
+  }
+
   // A method to stop the rollers
   public void stop() {
     Indexer.set(0);
