@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -55,7 +56,8 @@ public class RobotContainer {
     // Set the options to show up in the Dashboard for selecting auto modes. If you
     // add additional auto modes you can add additional lines here with
     // autoChooser.addOption
-    autoChooser.setDefaultOption("Autonomous", new ExampleAuto(driveSubsystem, fuelSubsystem));
+    SmartDashboard.putData(autoChooser);
+    autoChooser.setDefaultOption("Autonomous", new ExampleAuto(driveSubsystem, fuelSubsystem, climberSubsystem));
     //autoChooser.addOption("Climber Auto", getAutonomousCommand());
   }
 
@@ -81,9 +83,9 @@ public class RobotContainer {
     // the intake
     operatorController.a().whileTrue(new Eject(fuelSubsystem));
    // While the down arrow on the directional pad is held it will unclimb the robot
-    driverController.povDown().whileTrue(new ClimbDown(climberSubsystem));
+    operatorController.povDown().whileTrue(new ClimbDown(climberSubsystem));
     // While the up arrow on the directional pad is held it will cimb the robot
-    driverController.povUp().whileTrue(new ClimbUp(climberSubsystem));
+    operatorController.povUp().whileTrue(new ClimbUp(climberSubsystem));
 
     // Set the default command for the drive subsystem to the command provided by
     // factory with the values provided by the joystick axes on the driver
