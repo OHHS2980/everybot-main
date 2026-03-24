@@ -19,6 +19,8 @@ import frc.robot.commands.Eject;
 import frc.robot.commands.ExampleAuto;
 import frc.robot.commands.Intake;
 import frc.robot.commands.LaunchSequence;
+import frc.robot.commands.RampLeftAuto;
+import frc.robot.commands.RampRightAuto;
 import frc.robot.subsystems.CANDriveSubsystem;
 import frc.robot.subsystems.CANFuelSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -57,7 +59,9 @@ public class RobotContainer {
     // add additional auto modes you can add additional lines here with
     // autoChooser.addOption
     SmartDashboard.putData(autoChooser);
-    autoChooser.setDefaultOption("Autonomous", new ExampleAuto(driveSubsystem, fuelSubsystem, climberSubsystem));
+    autoChooser.setDefaultOption("Middle auto", new ExampleAuto(driveSubsystem, fuelSubsystem, climberSubsystem));
+    autoChooser.addOption("Left auto", new RampLeftAuto(driveSubsystem, fuelSubsystem, climberSubsystem));
+    autoChooser.addOption("Right auto", new RampRightAuto(driveSubsystem, fuelSubsystem, climberSubsystem));
     //autoChooser.addOption("Climber Auto", getAutonomousCommand());
   }
 
