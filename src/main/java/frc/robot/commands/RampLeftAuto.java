@@ -26,10 +26,10 @@ public class RampLeftAuto extends SequentialCommandGroup {
     // intentionally creates a command which does not end which allows us to control
     // the timing using the withTimeout decorator
     new ClimbUp(climberSubsystem).withTimeout(1),
-    new AutoDrive(driveSubsystem,-0.5,  0.0).withTimeout(1.4),
+    new AutoDrive(driveSubsystem,-0.5,  0.0).withTimeout(1.35),
     // this one rotates it. did you know that. i love you.
     // Hi Niewinski
-    new AutoDrive(driveSubsystem,0.0,  0.5).withTimeout(0.25),
+    new AutoDrive(driveSubsystem,0.0,  0.45).withTimeout(0.3),
     // Spin up the launcher for 0.75 second and then launch balls for 9.25 seconds, for a
     // total of 10 seconds
     new WaitCommand(1.0),
