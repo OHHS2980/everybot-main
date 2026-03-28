@@ -5,8 +5,14 @@
 package frc.robot;
 
 import edu.wpi.first.hal.HAL;
+
+import org.littletonrobotics.junction.LoggedRobot;
+import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.networktables.NT4Publisher;
+
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -34,6 +40,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
+    
     m_robotContainer = new RobotContainer();
 
     // Used to track usage of Kitbot code, please do not remove.
@@ -60,6 +67,16 @@ public class Robot extends TimedRobot {
     // robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
+    SmartDashboard.putBoolean("Left bumper", m_robotContainer.operatorController.leftBumper().getAsBoolean());
+    SmartDashboard.putBoolean("Right bumper", m_robotContainer.operatorController.rightBumper().getAsBoolean());
+    SmartDashboard.putBoolean("Eject", m_robotContainer.operatorController.a().getAsBoolean());
+
+    SmartDashboard.putBoolean("Dpad down", m_robotContainer.operatorController.povDown().getAsBoolean());
+    SmartDashboard.putBoolean("Dpad up", m_robotContainer.operatorController.povUp().getAsBoolean());
+
+    SmartDashboard.putNumber("driver rightx", m_robotContainer.driverController.getRightX());
+    SmartDashboard.putNumber("driver lefty", m_robotContainer.driverController.getLeftY());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

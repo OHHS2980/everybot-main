@@ -5,19 +5,23 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.ClimbConstants.*;
 
 public class ClimberSubsystem extends SubsystemBase {
   private final SparkMax climberMotor;
+  private final RelativeEncoder climberEncoder;
 
   /** Creates a new CANBallSubsystem. */
   public ClimberSubsystem() {
     // create Brushless motors for each of the motors on the launcher mechanism
     climberMotor = new SparkMax(CLIMBER_MOTOR_ID, MotorType.kBrushless);
+    climberEncoder = climberMotor.getEncoder();
 
     // create the configuration for the climb moter, set a current limit and apply
     // the config to the controller
@@ -40,5 +44,9 @@ public class ClimberSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Climber voltage", climberMotor.getBusVoltage());
+    SmartDashboard.putNumber("Climber temperature", climberMotor.getMotorTemperature());
+    SmartDashboard.putNumber("Climber speed", climberEncoder.getVelocity());
+    SmartDashboard.putNumber("Climber position", climberEncoder.getPosition());
   }
 }

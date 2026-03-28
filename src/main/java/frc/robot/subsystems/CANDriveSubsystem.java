@@ -7,15 +7,18 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.DriveConstants.*;
 
 public class CANDriveSubsystem extends SubsystemBase {
+
   private final SparkMax leftLeader;
   private final SparkMax leftFollower;
   private final SparkMax rightLeader;
@@ -23,12 +26,24 @@ public class CANDriveSubsystem extends SubsystemBase {
 
   private final DifferentialDrive drive;
 
+  private final RelativeEncoder leftLeaderEncoder;
+  private final RelativeEncoder leftFollowerEncoder;
+  private final RelativeEncoder rightLeaderEncoder;
+  private final RelativeEncoder rightFollowerEncoder;
+
+
   public CANDriveSubsystem() {
     // create Brushless motors for drive
     leftLeader = new SparkMax(LEFT_LEADER_ID, MotorType.kBrushless);
     leftFollower = new SparkMax(LEFT_FOLLOWER_ID, MotorType.kBrushless);
     rightLeader = new SparkMax(RIGHT_LEADER_ID, MotorType.kBrushless);
     rightFollower = new SparkMax(RIGHT_FOLLOWER_ID, MotorType.kBrushless);
+
+    leftLeaderEncoder = leftLeader.getEncoder();
+    leftFollowerEncoder = leftFollower.getEncoder();
+    rightLeaderEncoder = rightLeader.getEncoder();
+    rightFollowerEncoder = rightFollower.getEncoder();
+
 
     // set up differential drive class
     drive = new DifferentialDrive(leftLeader, rightLeader);
@@ -71,6 +86,15 @@ public class CANDriveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+
+    SmartDashboard.putNumber("leftdrive avg. temp", (leftLeader.getMotorTemperature() + leftFollower.getMotorTemperature()) / 2);
+    SmartDashboard.putNumber("rightdrive avg. temp", (rightLeader.getMotorTemperature() + rightFollower.getMotorTemperature()) / 2);
+
+    SmartDashboard.putNumber("leftleader speed", leftLeaderEncoder.getVelocity());
+    SmartDashboard.putNumber("leftfollower speed", leftFollowerEncoder.getVelocity());
+
+    SmartDashboard.putNumber("rightleader speed", rightLeaderEncoder.getVelocity());
+    SmartDashboard.putNumber("rightfollower speed", rightFollowerEncoder.getVelocity());
   }
 
   public void driveArcade(double xSpeed, double zRotation) {
