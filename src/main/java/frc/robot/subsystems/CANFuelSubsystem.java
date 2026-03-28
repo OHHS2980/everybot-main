@@ -25,6 +25,8 @@ public class CANFuelSubsystem extends SubsystemBase {
   private final SparkMax LeftIntakeLauncher;
   private final SparkMax RightIntakeLauncher;
   private final RelativeEncoder LeftIntakeEncoder;
+    private final RelativeEncoder IndexerEncoder;
+
   private final SparkMax Indexer;
 
   /** Creates a new CANBallSubsystem. */
@@ -34,6 +36,9 @@ public class CANFuelSubsystem extends SubsystemBase {
     RightIntakeLauncher = new SparkMax(RIGHT_INTAKE_LAUNCHER_MOTOR_ID, MotorType.kBrushless);
     Indexer = new SparkMax(INDEXER_MOTOR_ID, MotorType.kBrushless);
     LeftIntakeEncoder = LeftIntakeLauncher.getEncoder();
+
+    IndexerEncoder = Indexer.getEncoder();
+
 
     // create the configuration for the feeder roller, set a current limit and apply
     // the config to the controller
@@ -62,6 +67,8 @@ public class CANFuelSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Intaking intake roller value", INTAKE_INTAKING_PERCENT);
     SmartDashboard.putNumber("Launching feeder roller value", INDEXER_LAUNCHING_PERCENT);
     SmartDashboard.putNumber("Launching launcher roller value", LAUNCHING_LAUNCHER_PERCENT);
+
+
     //SmartDashboard.putNumber("Spin-up feeder roller value", SPIN_UP_FEEDER_VOLTAGE);
   }
 
@@ -91,6 +98,13 @@ public class CANFuelSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Shooter speed", LeftIntakeEncoder.getVelocity());
+    SmartDashboard.putNumber("Shooter avg. voltage", (LeftIntakeLauncher.getBusVoltage() + RightIntakeLauncher.getBusVoltage()) / 2);
+    SmartDashboard.putNumber("Shooter avg. temperature", (LeftIntakeLauncher.getMotorTemperature() + RightIntakeLauncher.getMotorTemperature()) / 2);
+
+    SmartDashboard.putNumber("Indexer voltage", Indexer.getBusVoltage());
+    SmartDashboard.putNumber("Indexer temperature", Indexer.getMotorTemperature());
+    SmartDashboard.putNumber("Indexer speed", IndexerEncoder.getVelocity());
+
     //LeftIntakeLauncher.set(.75);
     //RightIntakeLauncher.set(.75);
     // This method will be called once per scheduler run
